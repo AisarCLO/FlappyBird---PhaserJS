@@ -78,34 +78,18 @@ class Flappy extends Phaser.Scene {
   }
 
   addPipes() {
-    // Pair 1
-    const gapHeight = 150; // Adjust the gap height as needed
-    const pipeGap = 200; // Adjust the overall gap between the top and bottom pipes
-    const bottomPipeY1 = Phaser.Math.Between(
-      100,
-      game.config.height - gapHeight - 100
-    );
-    const topPipeY1 = bottomPipeY1 - gapHeight - pipeGap;
+    this.addOnePipe(1100, game.config.height - 8); // Bottom pipe - Pair 1
+    this.addOnePipe(1100, 0); // Top pipe - Pair 1
 
-    this.addOnePipe(1100, bottomPipeY1); // Bottom pipe - Pair 1
-    this.addOnePipe(1100, topPipeY1, true); // Top pipe - Pair 1
-
-    // Pair 2 with a gap
-    const bottomPipeY2 = Phaser.Math.Between(
-      100,
-      game.config.height - gapHeight - 100
-    );
-    const topPipeY2 = bottomPipeY2 - gapHeight - pipeGap;
-
-    this.addOnePipe(1400, bottomPipeY2); // Bottom pipe - Pair 2
-    this.addOnePipe(1400, topPipeY2, true); // Top pipe - Pair 2
+    // Add another pair of pipes
+    this.addOnePipe(1400, game.config.height - 8); // Bottom pipe - Pair 2
+    this.addOnePipe(1400, 0); // Top pipe - Pair 2
   }
 
-  addOnePipe(x, y, isTopPipe = false) {
+  addOnePipe(x, y) {
     const pipeHeight = this.textures.get("pipe").getSourceImage().height;
-    const adjustedY = isTopPipe ? y - pipeHeight : y;
 
-    const pipe = this.physics.add.sprite(x, adjustedY, "pipe");
+    const pipe = this.physics.add.sprite(x, y, "pipe");
 
     this.pipes.add(pipe);
     this.physics.world.enable(pipe);
@@ -115,7 +99,7 @@ class Flappy extends Phaser.Scene {
     pipe.outOfBoundsKill = true;
 
     // Rotate the top pipe by 180 degrees
-    if (isTopPipe) {
+    if (y === 0) {
       pipe.setAngle(180);
     }
   }
