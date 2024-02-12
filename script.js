@@ -27,12 +27,13 @@ class Flappy extends Phaser.Scene {
   }
 
   create() {
+    //For BG_DAY
     this.add.image(0, 0, "bg-day").setOrigin(0, 0);
     platforms = this.physics.add.staticGroup();
     const base = platforms.create(0, 680, "base");
     base.setScale(8, 1);
     base.refreshBody();
-
+    //FOR Player
     player = this.physics.add.sprite(100, 450, "upBird");
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
@@ -78,12 +79,11 @@ class Flappy extends Phaser.Scene {
   }
 
   addPipes() {
-    this.addOnePipe(1100, game.config.height - 8); // Bottom pipe - Pair 1
-    this.addOnePipe(1100, 0); // Top pipe - Pair 1
+    this.addOnePipe(1100, game.config.height - 8);
+    this.addOnePipe(1100, 0);
 
-    // Add another pair of pipes
-    this.addOnePipe(1400, game.config.height - 8); // Bottom pipe - Pair 2
-    this.addOnePipe(1400, 0); // Top pipe - Pair 2
+    this.addOnePipe(1400, game.config.height - 8);
+    this.addOnePipe(1400, 0);
   }
 
   addOnePipe(x, y) {
